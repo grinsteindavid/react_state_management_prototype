@@ -8,7 +8,7 @@ function RouteWrapper() {
         <Switch>
             <Route
                 exact
-                path="/profile"
+                path="/permissions"
                 render={(props) => <PermissionsPage />}
             />
         </Switch>

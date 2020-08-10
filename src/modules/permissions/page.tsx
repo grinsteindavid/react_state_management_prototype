@@ -3,7 +3,9 @@ import React from 'react'
 function PermissionsPage() {
 
     return (
-        <div></div>
+        <div>
+            <h1>Permissions page</h1>
+        </div>
     );
 }
 

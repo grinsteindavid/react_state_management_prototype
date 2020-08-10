@@ -1,3 +1,6 @@
+import Store from 'store'
+import SessionStorage from 'store/storages/sessionStorage'
+
 class AuthService {
     intendeedRoute: string | null;
     user: { email: string } | null;
@@ -11,12 +14,13 @@ class AuthService {
 
     setIntendedRoute(path: string) {
         if (path !== '/') {
+            SessionStorage.write('intendeedRoute', path);
             this.intendeedRoute = path;
         }
     }
 
     getIntendeedRoute() {
-        return this.intendeedRoute;
+        return SessionStorage.read('intendeedRoute');
     }
 
     async login(email: string, password: string) {
@@ -28,10 +32,17 @@ class AuthService {
             }, 2000)
         })
 
-        return true
+        Store.set('token', this.token);
+        Store.set('user', this.user);
+
+        return this.user
     }
 
     logout() {
+        Store.remove('user');
+        Store.remove('token');
+        SessionStorage.remove('intendeedRoute');
+
         this.user = null;
         this.token = null;
         this.intendeedRoute = null;
@@ -43,6 +54,7 @@ class AuthService {
 
     removeToken() {
         this.token = null;
+        Store.remove('token');
     }
 }
 

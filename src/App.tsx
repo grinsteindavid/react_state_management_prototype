@@ -9,10 +9,10 @@ function App() {
     <Switch>
       <Route exact path="(/login)" render={(props) => (
         AuthService.isAuthenticated()
-          ? <Redirect to='/' />
+          ? <Redirect to='/admin' />
           : <LoginPage />
       )} />
-      <Route path="/" render={(props) => {
+      <Route path="/admin" render={(props) => {
         const { history: { location } } = props
         AuthService.setIntendedRoute(location.pathname)
         return (
