@@ -29,7 +29,7 @@ class AuthService {
                 this.user = { email };
                 this.token = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
                 resolve();
-            }, 2000)
+            }, 1200)
         })
 
         Store.set('token', this.token);

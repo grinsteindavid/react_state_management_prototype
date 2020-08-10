@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 import { Link } from "react-router-dom";
 import {
-    Button,
     Divider,
     Grid,
     Header,
     Icon,
     Segment,
 } from 'semantic-ui-react';
+import styles from './styles.module.scss';
 
 function DashboardPage() {
 
@@ -19,33 +19,21 @@ function DashboardPage() {
 
                     <Grid.Row verticalAlign='middle'>
                         <Grid.Column>
-                            <Header icon>
-                                <Icon name='file' />
-                                    Permissions
-                            </Header>
-
                             <Link to="admin/permissions">
-                                <Button
-                                    primary
-                                    content="Search"
-                                    icon="search"
-                                />
+                                <Header icon className={styles.elementHover}>
+                                    <Icon name='file' />
+                                    Permissions
+                                </Header>
                             </Link>
 
                         </Grid.Column>
 
                         <Grid.Column>
-                            <Header icon>
-                                <Icon name='user' />
-                                Users
-                            </Header>
-
                             <Link to="admin/users">
-                                <Button
-                                    primary
-                                    content="Search"
-                                    icon="search"
-                                />
+                                <Header icon className={styles.elementHover}>
+                                    <Icon name='user' />
+                                    Users
+                                </Header>
                             </Link>
                         </Grid.Column>
                     </Grid.Row>
