@@ -16,8 +16,12 @@ class UserService {
     async fetchUsers() {
         let users: IUser[] = []
 
-        await new Promise(resolve => {
+        await new Promise((resolve, reject) => {
             setTimeout(() => {
+                if (Math.random() <= 0.4) {
+                    reject()
+                }
+
                 users = Array.from(Array(100).keys()).map(() => {
                     return {
                         id: faker.random.number(),

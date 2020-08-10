@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Router from './router';
 import { Menu, Button, Modal, Header, Icon } from 'semantic-ui-react';
 import { useHistory } from "react-router-dom";
@@ -10,20 +10,15 @@ import { openAlertModal, closeAlertModal, IAlertModal } from '../../reducers/adm
 interface IProps {
     alertModal: IAlertModal,
     closeAlertModal: () => void,
-    openAlertModal: (config: IAlertModal) => void
 }
 
 function AdminPage(props: IProps) {
-    const { alertModal } = props
+    const { alertModal, closeAlertModal } = props
 
     function confirmAlertHandler() {
-        props.closeAlertModal()
+        closeAlertModal()
         alertModal.onConfirm?.()
     }
-
-    useEffect(() => {
-        props.openAlertModal({ body: 'Welcome!' })
-    }, [])
 
     return (
         <>
@@ -62,7 +57,7 @@ function AdminMenu() {
                     icon="home"
                     color="green"
                     content="Home"
-                    onClick={(e) => history.push('/')}
+                    onClick={(e) => history.push('/admin')}
                 />
             </Menu.Item>
             <Menu.Item>

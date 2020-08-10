@@ -16,8 +16,12 @@ class PermissionsService {
     async fetchPermissions() {
         let permissions: IPermission[] = []
 
-        await new Promise(resolve => {
+        await new Promise((resolve, reject) => {
             setTimeout(() => {
+                if (Math.random() <= 0.4) {
+                    reject()
+                }
+
                 permissions = Array.from(Array(100).keys()).map(() => {
                     return {
                         id: faker.random.number(),

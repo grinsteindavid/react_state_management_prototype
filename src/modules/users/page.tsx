@@ -2,18 +2,31 @@ import React, { useEffect, useState } from 'react';
 import UserService from '../../services/user';
 import { IUser } from '../../services/user'
 import { Table, Loader } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { openAlertModal, IAlertModal } from '../../reducers/admin';
 
-function UserPage() {
+interface IProps {
+    openAlertModal: (config: IAlertModal) => void
+}
+
+function UserPage(props: IProps) {
+    const { openAlertModal } = props
     const [users, setUsers] = useState<IUser[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     async function fetchUsers() {
         setIsLoading(true);
 
-        const response = await UserService.fetchUsers();
-        setUsers(response);
+        try {
+            const response = await UserService.fetchUsers();
+            setUsers(response);
+        } catch (error) {
+            console.error(error)
+            openAlertModal({ body: 'Error fetching data', color: 'red', title: 'Alert' });
+        }
 
         setIsLoading(false);
+
     }
 
     useEffect(() => {
@@ -54,4 +67,5 @@ function UserPage() {
     );
 }
 
-export default UserPage
+const mapDispatchToProps = { openAlertModal };
+export default connect(undefined, mapDispatchToProps)(UserPage);
