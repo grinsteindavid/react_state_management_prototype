@@ -1,25 +1,46 @@
 import { createSlice } from '@reduxjs/toolkit'
-import AuthService from '../services/auth'
+
+export interface IAlertModal {
+    visible?: boolean,
+    size?: string | null,
+    color?: string | null,
+    title?: string | null,
+    body?: string | null,
+    icon?: string | null,
+    onConfirm?: Function | null
+}
+
+const initialState: IAlertModal = {
+    visible: false,
+    size: null,
+    color: null,
+    title: null,
+    body: null,
+    icon: null,
+    onConfirm: null
+}
 
 const adminSlice = createSlice({
     name: 'admin',
-    initialState: {
-        authModal: {
-            visible: false
-        }
-    },
+    initialState,
     reducers: {
-        openAuthModal(state) {
-            AuthService.removeToken()
-            state.authModal.visible = true
+        openAlertModal(state, action) {
+            return {
+                ...state,
+                ...action.payload,
+                visible: true
+            }
         },
-        closeAuthModal(state) {
-            state.authModal.visible = false
+        closeAlertModal(state) {
+            return {
+                ...state,
+                visible: false
+            }
         }
     }
 })
 
-export const { openAuthModal, closeAuthModal } = adminSlice.actions
+export const { openAlertModal, closeAlertModal } = adminSlice.actions
 
 export default adminSlice.reducer
 
