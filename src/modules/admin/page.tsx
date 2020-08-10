@@ -3,6 +3,7 @@ import Router from './router'
 import { Menu, Button } from 'semantic-ui-react';
 import { useHistory } from "react-router-dom";
 import AuthService from '../../services/auth';
+import styles from './styles.module.scss'
 
 function AdminPage() {
 
@@ -10,7 +11,9 @@ function AdminPage() {
         <>
             <AdminMenu />
 
-            <Router />
+            <div className={styles.wrapper}>
+                <Router />
+            </div>
         </>
     );
 };
@@ -24,7 +27,7 @@ function AdminMenu() {
     };
 
     return (
-        <Menu>
+        <Menu inverted borderless style={{ borderRadius: 0 }}>
             <Menu.Item>
                 <Button
                     icon="log out"

@@ -8,8 +8,8 @@ class AuthService {
 
     constructor() {
         this.intendeedRoute = null;
-        this.user = null;
-        this.token = null;
+        this.user = Store.get('user');
+        this.token = Store.get('token');
     }
 
     setIntendedRoute(path: string) {

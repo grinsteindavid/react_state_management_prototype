@@ -7,7 +7,7 @@ import LoginPage from '../src/modules/login/page';
 function App() {
   return (
     <Switch>
-      <Route exact path="(/login)" render={(props) => (
+      <Route exact path="(/login|/)" render={(props) => (
         AuthService.isAuthenticated()
           ? <Redirect to='/admin' />
           : <LoginPage />

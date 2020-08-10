@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from "react-router-dom"
-import PermissionsPage from "./page"
+import UsersPage from "./page"
 
 function RouteWrapper() {
 
@@ -8,8 +8,8 @@ function RouteWrapper() {
         <Switch>
             <Route
                 exact
-                path="/admin/permissions"
-                render={(props) => <PermissionsPage />}
+                path="/admin/users"
+                render={(props) => <UsersPage />}
             />
         </Switch>
     );
