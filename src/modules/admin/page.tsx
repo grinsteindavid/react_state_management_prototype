@@ -2,7 +2,7 @@ import React from 'react';
 import Router from './router';
 import styles from './styles.module.scss';
 import { connect } from 'react-redux';
-import { openAlertModal, closeAlertModal, IAlertModal } from '../../reducers/alert_modal';
+import { closeAlertModal, IAlertModal } from '../../reducers/alert_modal';
 import { IAuthModal, closeAuthModal } from '../../reducers/auth_modal';
 import { AdminMenu, AdminAlertModal, AdminAuthModal } from './components';
 
@@ -54,6 +54,6 @@ const mapStateToProps = (state: { alertModal: IAlertModal, authModal: IAuthModal
     alertModal: state.alertModal,
     authModal: state.authModal
 });
-const mapDispatchToProps = { openAlertModal, closeAlertModal, closeAuthModal };
+const mapDispatchToProps = { closeAlertModal, closeAuthModal };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminPage);
