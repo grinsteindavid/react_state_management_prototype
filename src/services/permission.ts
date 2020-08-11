@@ -1,4 +1,5 @@
 import faker from 'faker';
+import { uniqBy } from 'lodash';
 
 export interface IPermission {
     id: number,
@@ -35,7 +36,7 @@ class PermissionsService {
             }, 1200)
         })
 
-        return permissions
+        return uniqBy(permissions, 'id')
     }
 }
 

@@ -1,6 +1,7 @@
 import faker from 'faker';
 import { openAuthModal } from '../reducers/auth_modal';
 import reduxStore from '../redux_store';
+import { uniqBy } from 'lodash';
 
 export interface IUser {
     id: number,
@@ -41,7 +42,7 @@ class UserService {
             }, 1200)
         })
 
-        return users
+        return uniqBy(users, 'id')
     }
 }
 
