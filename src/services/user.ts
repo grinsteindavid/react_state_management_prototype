@@ -1,4 +1,6 @@
 import faker from 'faker';
+import { openAuthModal } from '../reducers/auth_modal';
+import reduxStore from '../redux_store';
 
 export interface IUser {
     id: number,
@@ -18,8 +20,12 @@ class UserService {
 
         await new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (Math.random() <= 0.4) {
+                const randomNumber = Math.random()
+                if (randomNumber <= 0.1) {
                     reject()
+                }
+                if (randomNumber <= 0.4) {
+                    reduxStore.dispatch(openAuthModal())
                 }
 
                 users = Array.from(Array(100).keys()).map(() => {

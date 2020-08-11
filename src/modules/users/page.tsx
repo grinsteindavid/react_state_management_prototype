@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import UserService from '../../services/user';
 import { Table, Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { openAlertModal, IAlertModal } from '../../reducers/admin';
+import { openAlertModal, IAlertModal } from '../../reducers/alert_modal';
 import { UsersContext } from './context';
 
 interface IProps {

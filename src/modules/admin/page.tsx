@@ -1,19 +1,20 @@
 import React from 'react';
 import Router from './router';
-import { Menu, Button, Modal, Header, Icon } from 'semantic-ui-react';
-import { useHistory } from "react-router-dom";
-import AuthService from '../../services/auth';
 import styles from './styles.module.scss';
 import { connect } from 'react-redux';
-import { openAlertModal, closeAlertModal, IAlertModal } from '../../reducers/admin';
+import { openAlertModal, closeAlertModal, IAlertModal } from '../../reducers/alert_modal';
+import { IAuthModal, closeAuthModal } from '../../reducers/auth_modal';
+import { AdminMenu, AdminAlertModal, AdminAuthModal } from './components';
 
 interface IProps {
     alertModal: IAlertModal,
+    authModal: IAuthModal,
+    closeAuthModal: () => void,
     closeAlertModal: () => void,
 }
 
 function AdminPage(props: IProps) {
-    const { alertModal, closeAlertModal } = props
+    const { alertModal, authModal, closeAuthModal, closeAlertModal } = props
 
     function confirmAlertHandler() {
         closeAlertModal()
@@ -25,13 +26,19 @@ function AdminPage(props: IProps) {
             <AdminMenu />
 
             {alertModal.visible && (
-                <AlertModal
+                <AdminAlertModal
                     size={alertModal.size}
                     color={alertModal.color}
                     title={alertModal.title}
                     body={alertModal.body}
                     icon={alertModal.icon}
                     onConfirm={confirmAlertHandler}
+                />
+            )}
+
+            {authModal.visible && (
+                <AdminAuthModal
+                    onClose={closeAuthModal}
                 />
             )}
 
@@ -42,65 +49,11 @@ function AdminPage(props: IProps) {
     );
 };
 
-function AdminMenu() {
-    let history = useHistory();
 
-    function logOutHandler() {
-        AuthService.logout();
-        history.push('/');
-    };
-
-    return (
-        <Menu inverted borderless style={{ borderRadius: 0 }}>
-            <Menu.Item>
-                <Button
-                    icon="home"
-                    color="green"
-                    content="Home"
-                    onClick={(e) => history.push('/admin')}
-                />
-            </Menu.Item>
-            <Menu.Item>
-                <Button
-                    icon="log out"
-                    color="green"
-                    content="Log-out"
-                    onClick={logOutHandler}
-                />
-            </Menu.Item>
-        </Menu>
-    )
-};
-
-function AlertModal(props: any) {
-    const { size, color, title, body, icon, onConfirm } = props
-
-    return (
-        <Modal
-            dimmer="inverted"
-            size={size || 'tiny'}
-            open={true}
-        >
-            <Header
-                icon={icon || 'warning sign'}
-                color={color || 'blue'}
-                content={title || ''}
-            />
-            <Modal.Content>
-                {body || ''}
-            </Modal.Content>
-            <Modal.Actions>
-                <Button color='green' inverted onClick={onConfirm}>
-                    <Icon name='checkmark' /> Ok
-                </Button>
-            </Modal.Actions>
-        </Modal>
-    )
-};
-
-const mapStateToProps = (state: { adminSlice: IAlertModal }) => ({
-    alertModal: state.adminSlice
-})
-const mapDispatchToProps = { openAlertModal, closeAlertModal };
+const mapStateToProps = (state: { alertModal: IAlertModal, authModal: IAuthModal }) => ({
+    alertModal: state.alertModal,
+    authModal: state.authModal
+});
+const mapDispatchToProps = { openAlertModal, closeAlertModal, closeAuthModal };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminPage);

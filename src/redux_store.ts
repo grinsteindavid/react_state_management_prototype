@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
-import adminSlice from './reducers/admin'
+import alertModal from './reducers/alert_modal'
+import authModal from './reducers/auth_modal'
 
 const rootReducer = combineReducers({
-    adminSlice,
+    alertModal,
+    authModal
 })
 
 const store = configureStore({

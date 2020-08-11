@@ -1,13 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { SemanticCOLORS, SemanticICONS } from 'semantic-ui-react';
+
+type TModalSizes = 'mini' | 'tiny' | 'small' | 'large' | 'fullscreen'
 
 export interface IAlertModal {
     visible?: boolean,
-    size?: string | null,
-    color?: string | null,
+    size?: TModalSizes | null,
+    color?: SemanticCOLORS | null,
     title?: string | null,
     body?: string | null,
-    icon?: string | null,
-    onConfirm?: Function | null
+    icon?: SemanticICONS | null,
+    onConfirm?: () => void | undefined
 }
 
 const initialState: IAlertModal = {
@@ -17,11 +20,11 @@ const initialState: IAlertModal = {
     title: null,
     body: null,
     icon: null,
-    onConfirm: null
+    onConfirm: undefined
 }
 
-const adminSlice = createSlice({
-    name: 'admin',
+const alertModalSlice = createSlice({
+    name: 'alert_modal',
     initialState,
     reducers: {
         openAlertModal(state, action) {
@@ -40,7 +43,7 @@ const adminSlice = createSlice({
     }
 })
 
-export const { openAlertModal, closeAlertModal } = adminSlice.actions
+export const { openAlertModal, closeAlertModal } = alertModalSlice.actions
 
-export default adminSlice.reducer
+export default alertModalSlice.reducer
 
