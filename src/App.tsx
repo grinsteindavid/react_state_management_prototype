@@ -13,8 +13,9 @@ function App() {
           : <LoginPage />
       )} />
       <Route path="/admin" render={(props) => {
-        const { history: { location } } = props
-        AuthService.setIntendedRoute(location.pathname)
+        const { history: { location } } = props;
+        AuthService.setIntendedRoute(location.pathname);
+
         return (
           AuthService.isAuthenticated()
             ? <AdminPage />

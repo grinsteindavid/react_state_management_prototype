@@ -25,7 +25,7 @@ function UserPage(props: IProps) {
                 users: response
             }));
         } catch (error) {
-            console.error(error)
+            console.error(error);
             openAlertModal({ body: 'Error fetching data', color: 'red', title: 'Alert' });
         }
 

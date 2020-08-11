@@ -6,9 +6,6 @@ interface InitContextProps {
     state: IUserContext;
     setState: Dispatch<React.SetStateAction<IUserContext>>;
 }
-
-export const UsersContext = React.createContext({} as InitContextProps)
-
 interface IProps {
     children: ReactNode;
     initialState: IUserContext;
@@ -18,6 +15,7 @@ interface IUserContext {
     users: IUser[];
 }
 
+export const UsersContext = React.createContext({} as InitContextProps)
 
 export const Provider = (props: IProps) => {
     const { initialState, children } = props;

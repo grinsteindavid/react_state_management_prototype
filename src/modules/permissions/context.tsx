@@ -7,8 +7,6 @@ interface InitContextProps {
     setState: Dispatch<React.SetStateAction<IPermissionContext>>;
 }
 
-export const PermissionsContext = React.createContext({} as InitContextProps);
-
 interface IProps {
     children: ReactNode;
     initialState: IPermissionContext;
@@ -17,6 +15,8 @@ interface IProps {
 interface IPermissionContext {
     permissions: IPermission[];
 }
+
+export const PermissionsContext = React.createContext({} as InitContextProps);
 
 
 export const Provider = (props: IProps) => {

@@ -2,12 +2,12 @@ import Store from 'store'
 import SessionStorage from 'store/storages/sessionStorage'
 
 class AuthService {
-    intendeedRoute: string | null;
+    intendedRoute: string | null;
     user: { email: string } | null;
     token: string | null;
 
     constructor() {
-        this.intendeedRoute = null;
+        this.intendedRoute = null;
         this.user = Store.get('user');
         this.token = Store.get('token');
     }
@@ -15,7 +15,7 @@ class AuthService {
     setIntendedRoute(path: string) {
         if (path !== '/') {
             SessionStorage.write('intendeedRoute', path);
-            this.intendeedRoute = path;
+            this.intendedRoute = path;
         }
     }
 
@@ -45,7 +45,7 @@ class AuthService {
 
         this.user = null;
         this.token = null;
-        this.intendeedRoute = null;
+        this.intendedRoute = null;
     }
 
     isAuthenticated() {
