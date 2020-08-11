@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PermissionService from '../../services/permission';
-import { IPermission } from '../../services/permission'
 import { Table, Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { openAlertModal, IAlertModal } from '../../reducers/admin';
+import { PermissionsContext } from './context';
 
 interface IProps {
     openAlertModal: (config: IAlertModal) => void
 }
 
 function PermissionsPage(props: IProps) {
-    const { openAlertModal } = props
-    const [permissions, setPermissions] = useState<IPermission[]>([]);
+    const { openAlertModal } = props;
+    const { state, setState } = useContext(PermissionsContext);
+    const { permissions } = state;
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     async function fetchPermissions() {
@@ -19,9 +20,12 @@ function PermissionsPage(props: IProps) {
 
         try {
             const response = await PermissionService.fetchPermissions();
-            setPermissions(response);
+            setState(prevState => ({
+                ...prevState,
+                permissions: response
+            }));
         } catch (error) {
-            console.error(error)
+            console.error(error);
             openAlertModal({ body: 'Error fetching data', color: 'red', title: 'Alert' });
         }
 

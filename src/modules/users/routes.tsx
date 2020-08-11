@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { Route, Switch } from "react-router-dom"
-import UsersPage from "./page"
+import UsersPage from "./page";
+import { Provider } from './context';
 
 function RouteWrapper() {
 
@@ -9,10 +10,16 @@ function RouteWrapper() {
             <Route
                 exact
                 path="/admin/users"
-                render={(props) => <UsersPage />}
+                render={(props) => {
+                    return (
+                        <Provider initialState={{ users: [] }}>
+                            <UsersPage />
+                        </Provider>
+                    )
+                }}
             />
         </Switch>
     );
 }
 
-export default RouteWrapper
+export default RouteWrapper;

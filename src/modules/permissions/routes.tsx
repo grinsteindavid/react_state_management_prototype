@@ -1,6 +1,7 @@
-import React from 'react'
-import { Route, Switch } from "react-router-dom"
-import PermissionsPage from "./page"
+import React from 'react';
+import { Route, Switch } from "react-router-dom";
+import { Provider } from './context';
+import PermissionsPage from "./page";
 
 function RouteWrapper() {
 
@@ -9,7 +10,13 @@ function RouteWrapper() {
             <Route
                 exact
                 path="/admin/permissions"
-                render={(props) => <PermissionsPage />}
+                render={(props) => {
+                    return (
+                        <Provider initialState={{ permissions: [] }}>
+                            <PermissionsPage />
+                        </Provider>
+                    )
+                }}
             />
         </Switch>
     );
