@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useMemo } from 'react';
 import PermissionService from '../../services/permission';
-import { Table, Loader } from 'semantic-ui-react';
+import { Table, Loader, Checkbox } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { openAlertModal, IAlertModal } from '../../reducers/alert_modal';
 import { PermissionsContext } from './context';
+import { IPermission } from '../../services/permission';
 
 interface IProps {
     openAlertModal: (config: IAlertModal) => void
@@ -14,6 +15,7 @@ function PermissionsPage(props: IProps) {
     const { state, setState } = useContext(PermissionsContext);
     const { permissions } = state;
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isChecked, setIsChecked] = useState<boolean>(false);
 
     async function fetchPermissions() {
         setIsLoading(true);
@@ -38,6 +40,52 @@ function PermissionsPage(props: IProps) {
 
     return (
         <>
+            <TestStateRender
+                isChecked={isChecked}
+                setIsChecked={setIsChecked}
+            />
+
+            <PermissionsTable
+                permissions={permissions}
+                isLoading={isLoading}
+            />
+
+            {isLoading && <Loader size="huge" active />}
+        </>
+    );
+}
+
+interface ITestStateRenderProps {
+    isChecked: boolean,
+    setIsChecked: (value: boolean) => void
+}
+
+function TestStateRender(props: ITestStateRenderProps) {
+    const { isChecked, setIsChecked } = props
+
+    return useMemo(() => {
+        return (
+            <div style={{ padding: 40 }}>
+                <Checkbox
+                    toggle
+                    label="test state render"
+                    checked={isChecked}
+                    onChange={(event, { checked }) => setIsChecked(checked as boolean)}
+                />
+            </div>
+        )
+    }, [isChecked])
+}
+
+interface IPermissionsTableProps {
+    permissions: IPermission[],
+    isLoading: boolean
+}
+
+function PermissionsTable(props: IPermissionsTableProps) {
+    const { permissions, isLoading } = props
+    return useMemo(() => {
+        return (
             <Table celled>
                 <Table.Header>
                     <Table.Row>
@@ -64,10 +112,8 @@ function PermissionsPage(props: IProps) {
                     </Table.Body>
                 )}
             </Table>
-
-            {isLoading && <Loader size="huge" active />}
-        </>
-    );
+        )
+    }, [permissions, isLoading])
 }
 
 const mapDispatchToProps = { openAlertModal };

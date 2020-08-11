@@ -14,11 +14,11 @@ interface IProps {
 }
 
 function AdminPage(props: IProps) {
-    const { alertModal, authModal, closeAuthModal, closeAlertModal } = props
+    const { alertModal, authModal, closeAuthModal, closeAlertModal } = props;
 
     function confirmAlertHandler() {
-        closeAlertModal()
-        alertModal.onConfirm?.()
+        closeAlertModal();
+        alertModal.onConfirm?.();
     }
 
     return (
