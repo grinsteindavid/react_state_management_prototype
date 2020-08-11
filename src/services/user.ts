@@ -25,7 +25,7 @@ class UserService {
                 if (randomNumber <= 0.1) {
                     reject()
                 }
-                if (randomNumber <= 0.4) {
+                if (randomNumber <= 0.7) {
                     reduxStore.dispatch(openAuthModal())
                 }
 
