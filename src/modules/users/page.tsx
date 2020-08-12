@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserService from '../../services/user';
 import { Table, Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { openAlertModal, IAlertModal } from '../../reducers/alert_modal';
-import { UsersContext } from './context';
+import { useUsersContext } from './context';
 
 interface IProps {
     openAlertModal: (config: IAlertModal) => void
@@ -11,7 +11,7 @@ interface IProps {
 
 function UserPage(props: IProps) {
     const { openAlertModal } = props;
-    const { state, setState } = useContext(UsersContext);
+    const { state, setState } = useUsersContext();
     const { users } = state;
     const [isLoading, setIsLoading] = useState<boolean>(false);
 

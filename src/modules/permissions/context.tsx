@@ -1,10 +1,10 @@
-import React, { ReactNode, useState, Dispatch, useReducer } from 'react';
+import React, { ReactNode, useState, Dispatch, createContext, SetStateAction, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { IPermission } from '../../services/permission';
 
 interface InitContextProps {
     state: IPermissionContext;
-    setState: Dispatch<React.SetStateAction<IPermissionContext>>;
+    setState: Dispatch<SetStateAction<IPermissionContext>>;
 }
 
 interface IProps {
@@ -16,7 +16,7 @@ interface IPermissionContext {
     permissions: IPermission[];
 }
 
-export const PermissionsContext = React.createContext({} as InitContextProps);
+const PermissionsContext = createContext<InitContextProps | undefined>(undefined);
 
 
 export const Provider = (props: IProps) => {
@@ -32,6 +32,16 @@ export const Provider = (props: IProps) => {
 }
 
 // const reducer = (state: IPermissionContext, newState: IPermissionContext) => ({ ...state, ...newState });
+
+export function usePermissionsContext() {
+    const context = React.useContext(PermissionsContext);
+
+    if (context === undefined) {
+        throw new Error('Permissions Context undefined initial state')
+    }
+
+    return context
+}
 
 Provider.propTypes = {
     children: PropTypes.node.isRequired

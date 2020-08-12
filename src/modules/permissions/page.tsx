@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import PermissionService from '../../services/permission';
 import { Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { openAlertModal, IAlertModal } from '../../reducers/alert_modal';
-import { PermissionsContext } from './context';
+import { usePermissionsContext } from './context';
 import { TestStateRender, PermissionsTable } from './components'
 
 interface IProps {
@@ -12,7 +12,7 @@ interface IProps {
 
 function PermissionsPage(props: IProps) {
     const { openAlertModal } = props;
-    const { state, setState } = useContext(PermissionsContext);
+    const { state, setState } = usePermissionsContext();
     const { permissions } = state;
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isChecked, setIsChecked] = useState<boolean>(false);
