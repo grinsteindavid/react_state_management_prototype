@@ -37,7 +37,7 @@ export function usePermissionsContext() {
     const context = React.useContext(PermissionsContext);
 
     if (context === undefined) {
-        throw new Error('Permissions Context undefined initial state')
+        throw new Error('Context must be used within a provider')
     }
 
     return context

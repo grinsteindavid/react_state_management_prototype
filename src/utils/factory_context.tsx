@@ -17,7 +17,7 @@ export default function factoryContext<T>(children: ReactNode, initialState: T) 
         const context = React.useContext(Context);
 
         if (context === undefined) {
-            throw new Error('Context undefined initial state');
+            throw new Error('Context must be used within a provider');
         }
 
         return context;

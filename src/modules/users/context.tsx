@@ -35,7 +35,7 @@ export function useUsersContext() {
     const context = useContext(UsersContext);
 
     if (context === undefined) {
-        throw new Error('Users Context undefined initial state')
+        throw new Error('Context must be used within a provider')
     }
 
     return context
