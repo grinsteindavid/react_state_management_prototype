@@ -19,7 +19,6 @@ const UsersContext = createContext<InitContextProps | undefined>(undefined);
 
 export const Provider = (props: IProps) => {
     const { initialState, children } = props;
-    // const [state, dispatch] = useReducer(reducer, initialState);
     const [state, setState] = useState<IUserContext>(initialState);
 
     return (
@@ -28,8 +27,6 @@ export const Provider = (props: IProps) => {
         </UsersContext.Provider>
     );
 }
-
-// const reducer = (state: IPermissionContext, newState: IPermissionContext) => ({ ...state, ...newState });
 
 export function useUsersContext() {
     const context = useContext(UsersContext);

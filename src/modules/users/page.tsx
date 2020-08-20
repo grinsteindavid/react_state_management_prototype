@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import UserService from '../../services/user';
+import UserService, { IUser } from '../../services/user';
 import { Table, Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { openAlertModal, IAlertModal } from '../../reducers/alert_modal';

@@ -1,5 +1,7 @@
 import faker from 'faker';
 import { uniqBy } from 'lodash';
+import { openAuthModal } from '../reducers/auth_modal';
+import reduxStore from '../redux_store';
 
 export interface IPermission {
     id: number,
@@ -9,18 +11,19 @@ export interface IPermission {
 }
 class PermissionsService {
 
-
-    constructor() {
-
-    }
-
-    async fetchPermissions() {
-        let permissions: IPermission[] = []
-
-        await new Promise((resolve, reject) => {
+    async fetchPermissions(): Promise<IPermission[]> {
+        return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (Math.random() <= 0.4) {
+                let permissions: IPermission[] = []
+                const randomNumber = Math.random()
+                const HTTP_503 = randomNumber <= 0.4
+                const HTTP_401 = randomNumber <= 0.7
+
+                if (HTTP_503) {
                     reject()
+                }
+                if (HTTP_401) {
+                    reduxStore.dispatch(openAuthModal())
                 }
 
                 permissions = Array.from(Array(100).keys()).map(() => {
@@ -32,11 +35,9 @@ class PermissionsService {
                     }
                 })
 
-                resolve()
+                resolve(uniqBy(permissions, 'id'))
             }, 1200)
         })
-
-        return uniqBy(permissions, 'id')
     }
 }
 

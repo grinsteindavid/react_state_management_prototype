@@ -11,21 +11,18 @@ export interface IUser {
 }
 class UserService {
 
-
-    constructor() {
-
-    }
-
-    async fetchUsers() {
-        let users: IUser[] = []
-
-        await new Promise((resolve, reject) => {
+    async fetchUsers(): Promise<IUser[]> {
+        return new Promise((resolve, reject) => {
             setTimeout(() => {
+                let users: IUser[] = []
                 const randomNumber = Math.random()
-                if (randomNumber <= 0.1) {
+                const HTTP_503 = randomNumber <= 0.1
+                const HTTP_401 = randomNumber <= 0.7
+
+                if (HTTP_503) {
                     reject()
                 }
-                if (randomNumber <= 0.7) {
+                if (HTTP_401) {
                     reduxStore.dispatch(openAuthModal())
                 }
 
@@ -38,11 +35,9 @@ class UserService {
                     }
                 })
 
-                resolve()
+                resolve(uniqBy(users, 'id'))
             }, 1200)
         })
-
-        return uniqBy(users, 'id')
     }
 }
 

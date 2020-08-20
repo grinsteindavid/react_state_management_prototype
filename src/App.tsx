@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
-import AuthService from '../src/services/auth';
-import AdminPage from '../src/modules/admin/page';
-import LoginPage from '../src/modules/login/page';
+import AuthService from './services/auth';
+import AdminPage from './modules/admin/page';
+import LoginPage from './modules/login/page';
 
 function App() {
   return (

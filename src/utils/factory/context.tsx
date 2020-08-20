@@ -5,7 +5,7 @@ interface ContextProps<T> {
     setState: Dispatch<SetStateAction<T>>;
 }
 
-export default function factoryContext<T>(children: ReactNode, initialState: T) {
+export default function Context<T>(children: ReactNode, initialState: T) {
     const Context = createContext<ContextProps<T> | undefined>(undefined);
     const [state, setState] = useState<T>(initialState);
     const Provider = () => (
